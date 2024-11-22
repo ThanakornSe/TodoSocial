@@ -25,9 +25,10 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+       kotlinCompilerExtensionVersion = "1.5.1"
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -39,7 +40,10 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:ui"))
+    implementation(projects.core.ui)
+    implementation(projects.core.resource)
+    implementation(projects.domain.main)
+
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

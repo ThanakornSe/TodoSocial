@@ -28,7 +28,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+       kotlinCompilerExtensionVersion = "1.5.1"
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -40,6 +40,7 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.resource)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -73,18 +74,4 @@ dependencies {
     implementation(libs.koin.navigation)
     implementation(libs.koin.compose)
 
-    // Test
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
-    debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
-
-    androidTestImplementation(libs.mockk.android)
-    testImplementation(libs.mockk)
-    testImplementation(libs.core.testing)
-    testImplementation(libs.turbine)
-    testImplementation(libs.kotlinx.coroutines.test)
 }
