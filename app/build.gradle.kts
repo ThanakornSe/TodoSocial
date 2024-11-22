@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "android.template"
+    namespace = "com.thanakorn.todo"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "android.template"
+        applicationId = "com.thanakorn.todo"
         minSdk = 26
         targetSdk = 34
         versionCode = 1

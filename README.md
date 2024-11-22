@@ -1,3 +1,3 @@
 # android-template
 
-./script.sh com.example.myproject MyApplication
+./script.sh com.thanakorn.todo TodoSocial

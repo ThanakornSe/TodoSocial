@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "android.template.main"
+    namespace = "com.thanakorn.todo.main"
     compileSdk = 34
 
     defaultConfig {

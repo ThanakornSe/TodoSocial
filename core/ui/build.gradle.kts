@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "android.template.ui"
+    namespace = "com.thanakorn.todo.ui"
     compileSdk = 34
 
     defaultConfig {

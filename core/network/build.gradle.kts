@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "android.template.network"
+    namespace = "com.thanakorn.todo.network"
     compileSdk = 34
 
     defaultConfig {
