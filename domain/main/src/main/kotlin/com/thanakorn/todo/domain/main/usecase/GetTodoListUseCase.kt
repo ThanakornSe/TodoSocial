@@ -12,6 +12,7 @@ class GetTodoListUseCase(private val repository: TodoDataRepository) {
                 id = item.id,
                 title = item.title,
                 userId = item.userId,
+                completed = item.completed
             )
         }
     }

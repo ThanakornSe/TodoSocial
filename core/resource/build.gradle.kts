@@ -75,6 +75,7 @@ dependencies {
     implementation(libs.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.coil.compose)
+    implementation(libs.accompanist.systemuicontroller)
 
     // DI Koin
     implementation(platform(libs.koin.bom))

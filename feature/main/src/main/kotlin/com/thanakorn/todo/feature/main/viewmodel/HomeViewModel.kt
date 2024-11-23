@@ -6,6 +6,7 @@ import com.thanakorn.todo.domain.main.usecase.GetTodoListUseCase
 import com.thanakorn.todo.feature.main.model.HomeTodoUiState
 import com.thanakorn.todo.feature.main.model.HomeUiState
 import com.thanakorn.todo.ui.base.BaseViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
@@ -20,7 +21,9 @@ class HomeViewModel(
 
     suspend fun getHomeData() {
         useCase.execute().flowOn(dispatcher.io)
-            .onStart { }
+            .onStart {
+                setLoading(true)
+            }
             .onEach {
                 _uiState.update { currentState ->
                     currentState.copy(
@@ -33,11 +36,15 @@ class HomeViewModel(
                                     completed = todo.completed ?: false,
                                 )
                             }
-                        )
+                        ),
+                        isLoading = false
                     )
                 }
             }
-            .catch { }
+            .catch {
+                setLoading(false)
+                setApiError(isApiError = true, errorMessage = it.message)
+            }
             .launchIn(viewModelScope)
     }
 }
