@@ -49,35 +49,36 @@ private fun provideOkHttpClient(
     return okHttpClientBuilder.build()
 }
 
-private fun createHttpLoggingInterceptor(): HttpLoggingInterceptor = HttpLoggingInterceptor { message ->
-    val newLogMessage = if (message.startsWith("{") || message.startsWith("[")) {
-        try {
-            GsonBuilder().setPrettyPrinting()
-                .create().toJson(JsonParser.parseString(message))
-        } catch (m: JsonSyntaxException) {
+private fun createHttpLoggingInterceptor(): HttpLoggingInterceptor =
+    HttpLoggingInterceptor { message ->
+        val newLogMessage = if (message.startsWith("{") || message.startsWith("[")) {
+            try {
+                GsonBuilder().setPrettyPrinting()
+                    .create().toJson(JsonParser.parseString(message))
+            } catch (m: JsonSyntaxException) {
+                message
+            }
+        } else {
             message
         }
-    } else {
-        message
-    }
-    val logMaxLength = HTTP_LOG_MAX_LENGTH
-    val messageLength = newLogMessage.length
-    if (messageLength > logMaxLength) {
-        var x = 0
-        while (x < messageLength) {
-            if (x + logMaxLength < messageLength) {
-                Timber.d(newLogMessage.substring(x, x + logMaxLength))
-            } else {
-                Timber.d(newLogMessage.substring(x, messageLength))
+        val logMaxLength = HTTP_LOG_MAX_LENGTH
+        val messageLength = newLogMessage.length
+        if (messageLength > logMaxLength) {
+            var x = 0
+            while (x < messageLength) {
+                if (x + logMaxLength < messageLength) {
+                    Timber.d(newLogMessage.substring(x, x + logMaxLength))
+                } else {
+                    Timber.d(newLogMessage.substring(x, messageLength))
+                }
+                x += logMaxLength
             }
-            x += logMaxLength
+        } else {
+            Timber.d(newLogMessage)
         }
-    } else {
-        Timber.d(newLogMessage)
+    }.apply {
+        setLevel(HttpLoggingInterceptor.Level.BODY)
     }
-}.apply {
-    setLevel(HttpLoggingInterceptor.Level.BODY)
-}
 
 
 private fun debugInterceptor(context: Context): ChuckerInterceptor =

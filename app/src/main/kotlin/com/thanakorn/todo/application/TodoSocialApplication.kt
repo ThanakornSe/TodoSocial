@@ -9,12 +9,14 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
+import timber.log.Timber
 
 class TodoSocialApplication:Application() {
     override fun onCreate() {
         super.onCreate()
         initKoin()
         setupAppConfig()
+        setupTimber()
     }
 
     private fun initKoin() {
@@ -30,6 +32,13 @@ class TodoSocialApplication:Application() {
         appConfig.apply {
             isDebug = BuildConfig.DEBUG
             baseApiUrl = BuildConfig.PREFIX
+        }
+    }
+
+    private fun setupTimber() {
+        val appConfig: AppConfiguration = get()
+        if (appConfig.isDebug) {
+            Timber.plant(Timber.DebugTree())
         }
     }
 }
