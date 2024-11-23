@@ -6,7 +6,6 @@ import com.thanakorn.todo.domain.main.usecase.GetTodoListUseCase
 import com.thanakorn.todo.feature.main.model.HomeTodoUiState
 import com.thanakorn.todo.feature.main.model.HomeUiState
 import com.thanakorn.todo.ui.base.BaseViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
@@ -18,33 +17,33 @@ class HomeViewModel(
     private val useCase: GetTodoListUseCase,
     private val dispatcher: DispatcherProvider,
 ) : BaseViewModel<HomeUiState>() {
-
     suspend fun getHomeData() {
-        useCase.execute().flowOn(dispatcher.io)
+        useCase
+            .execute()
+            .flowOn(dispatcher.io)
             .onStart {
                 setLoading(true)
-            }
-            .onEach {
+            }.onEach {
                 _uiState.update { currentState ->
                     currentState.copy(
-                        mainUiState = HomeUiState(
-                            todoList = it.map { todo ->
-                                HomeTodoUiState(
-                                    id = todo.id ?: 0,
-                                    userId = todo.userId ?: 0,
-                                    title = todo.title ?: "",
-                                    completed = todo.completed ?: false,
-                                )
-                            }
-                        ),
-                        isLoading = false
+                        mainUiState =
+                            HomeUiState(
+                                todoList =
+                                    it.map { todo ->
+                                        HomeTodoUiState(
+                                            id = todo.id ?: 0,
+                                            userId = todo.userId ?: 0,
+                                            title = todo.title ?: "",
+                                            completed = todo.completed ?: false,
+                                        )
+                                    },
+                            ),
+                        isLoading = false,
                     )
                 }
-            }
-            .catch {
+            }.catch {
                 setLoading(false)
                 setApiError(isApiError = true, errorMessage = it.message)
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
     }
 }

@@ -55,26 +55,29 @@ fun HomeScreen(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
-                modifier = Modifier
-                    .fillMaxWidth(),
+                modifier =
+                    Modifier
+                        .fillMaxWidth(),
                 title = {
                     Text(
                         text = stringResource(R.string.app_name),
                         style = Typography.titleLarge,
-                        color = white
+                        color = white,
                     )
                 },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = toolbarColor
-                )
+                colors =
+                    TopAppBarDefaults.topAppBarColors(
+                        containerColor = toolbarColor,
+                    ),
             )
-        }
+        },
     ) { paddingValue ->
 
         LazyColumn(
-            modifier = modifier
-                .fillMaxSize()
-                .padding(paddingValue)
+            modifier =
+                modifier
+                    .fillMaxSize()
+                    .padding(paddingValue),
         ) {
             uiState.mainUiState?.todoList?.let { todoList ->
                 items(todoList) {
