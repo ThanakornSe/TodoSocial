@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
-open class BaseViewModelCompose<T> : ViewModel() {
+open class BaseViewModel<T> : ViewModel() {
     // Alert Message List
     protected var alertDialogMessages: List<AlertDialogUiState> = listOf()
     protected var bottomSheetDialogMessges: List<BottomSheetDialogUiState> = listOf()

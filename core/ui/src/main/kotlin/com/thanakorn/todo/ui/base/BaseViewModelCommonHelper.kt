@@ -15,7 +15,7 @@ import androidx.compose.ui.platform.LocalContext
 @ExperimentalMaterial3Api
 @Composable
 fun <T> BaseViewModelCommonActionCompose(
-    viewModel: BaseViewModelCompose<T>,
+    viewModel: BaseViewModel<T>,
     snackState: SnackbarHostState = remember { SnackbarHostState() },
 ) {
     val uiState by viewModel.uiState.collectAsState()

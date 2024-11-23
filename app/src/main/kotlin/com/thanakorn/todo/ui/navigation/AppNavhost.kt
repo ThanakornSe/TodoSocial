@@ -11,7 +11,7 @@ import com.thanakorn.todo.feature.main.ui.navigation.homeFeatureNavHost
 fun AppNavHost(
     navController: NavHostController,
 ) {
-    NavHost(navController = navController, startDestination = NavigationItem) {
+    NavHost(navController = navController, startDestination = Screen) {
         homeFeatureNavHost(navController = navController)
     }
 }
