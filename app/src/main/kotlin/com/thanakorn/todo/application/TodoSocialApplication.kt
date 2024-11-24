@@ -3,6 +3,7 @@ package com.thanakorn.todo.application
 import android.app.Application
 import com.thanakorn.todo.BuildConfig
 import com.thanakorn.todo.common.base.AppConfiguration
+import com.thanakorn.todo.di.appModule
 import com.thanakorn.todo.feature.main.di.mainFeatureModule
 import org.koin.android.ext.android.get
 import org.koin.android.ext.koin.androidContext
@@ -23,7 +24,7 @@ class TodoSocialApplication:Application() {
         startKoin {
             androidContext(this@TodoSocialApplication)
             androidLogger(if (BuildConfig.DEBUG) Level.ERROR else Level.NONE)
-            modules(mainFeatureModule)
+            modules(appModule)
         }
     }
 
