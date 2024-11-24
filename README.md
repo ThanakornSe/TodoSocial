@@ -1,3 +1,11 @@
-# android-template
+## Project Jetpack Compose MVVM clean modularized architecture 
 
-./script.sh com.thanakorn.todo TodoSocial
+### Technologies Used
+- Kotlin
+- Jetpack Compose
+- Navigation Compose
+- Coroutines
+- Flow
+- Koin
+
+  
