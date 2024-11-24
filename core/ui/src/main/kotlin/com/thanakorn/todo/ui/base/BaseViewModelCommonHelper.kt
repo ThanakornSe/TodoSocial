@@ -11,43 +11,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
+import com.thanakorn.todo.ui.compose.LoadingScreen
 
-@ExperimentalMaterial3Api
 @Composable
 fun <T> BaseViewModelCommonActionCompose(
-    viewModel: BaseViewModelCompose<T>,
+    viewModel: BaseViewModel<T>,
     snackState: SnackbarHostState = remember { SnackbarHostState() },
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
     if (uiState.isLoading) {
-
-    }
-    uiState.openIntent?.let {
-        LocalContext.current.startActivity(it)
-        viewModel.clearOpenIntent()
+        LoadingScreen()
     }
 
-    val activity = (LocalContext.current) as Activity
-
-    uiState.alertDialogMessages.firstOrNull()?.let {
-
-    }
-
-    val scope = rememberCoroutineScope()
-
-    uiState.openBottomSheet.let {
-
-    }
-
-    LaunchedEffect(key1 = uiState.snackbarTitle) {
-        uiState.snackbarTitle?.let {
-            snackState
-                .showSnackbar(
-                    message = it,
-                    duration = SnackbarDuration.Short,
-                )
-            viewModel.clearSnackbarMessage()
-        }
-    }
 }

@@ -19,14 +19,17 @@ dependencyResolutionManagement {
     }
 }
 
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS") // <- Add this line
+
 rootProject.name = "TodoSocial"
 include(":app")
 include(":core")
 include(":data")
-include(":domain")
 include(":data:main")
 include(":core:network")
 include(":feature")
 include(":feature:main")
 include(":core:ui")
 include(":core:common")
+include(":core:resource")
+include(":domain:main")

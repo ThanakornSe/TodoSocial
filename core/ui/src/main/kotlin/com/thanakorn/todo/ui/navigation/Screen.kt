@@ -2,11 +2,10 @@ package com.thanakorn.todo.ui.navigation
 
 import kotlinx.serialization.Serializable
 
+// Route for nested graph
 @Serializable
-sealed class NavigationItem {
-    @Serializable
-    data object Home : NavigationItem()
+data object Screen
 
-    @Serializable
-    data class Profile(val name: String) : NavigationItem()
-}
+// Routes inside nested graph
+@Serializable
+data object Home

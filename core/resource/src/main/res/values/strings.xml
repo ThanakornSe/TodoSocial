@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TodoSocial</string>
+    <string name="completed_task">Completed</string>
+    <string name="not_completed_task">Incomplete</string>
+</resources>

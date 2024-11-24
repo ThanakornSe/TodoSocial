@@ -1,8 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.kotlin.serialization)
-    id("jacoco")
+    alias(libs.plugins.jetbrains.kotlin.serialization)
+    alias(libs.plugins.kotlin.ksp)
 }
 
 android {
@@ -25,16 +25,21 @@ android {
     flavorDimensions.add("environment")
 
     productFlavors {
+        val prefix = "\"https://jsonplaceholder.typicode.com/\""
+
         create("develop") {
             dimension = "environment"
+            buildConfigField("String", "PREFIX", prefix)
         }
 
         create("staging") {
             dimension = "environment"
+            buildConfigField("String", "PREFIX", prefix)
         }
 
         create("production") {
             dimension = "environment"
+            buildConfigField("String", "PREFIX", prefix)
         }
     }
 
@@ -61,9 +66,10 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+       kotlinCompilerExtensionVersion = "1.5.1"
     }
     packaging {
         resources {
@@ -73,8 +79,11 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:ui"))
-    implementation(project(":feature:main"))
+    implementation(projects.core.ui)
+    implementation(projects.core.common)
+    implementation(projects.core.resource)
+    implementation(projects.feature.main)
+
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -103,6 +112,7 @@ dependencies {
     implementation(libs.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.coil.compose)
+    implementation(libs.accompanist.systemuicontroller)
 
     // DI Koin
     implementation(platform(libs.koin.bom))
