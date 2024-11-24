@@ -7,8 +7,9 @@ import com.thanakorn.todo.feature.main.model.HomeTodoUiState
 import com.thanakorn.todo.feature.main.model.HomeUiState
 import com.thanakorn.todo.ui.base.BaseViewModel
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
@@ -18,33 +19,32 @@ class HomeViewModel(
     private val useCase: GetTodoListUseCase,
     private val dispatcher: DispatcherProvider,
 ) : BaseViewModel<HomeUiState>() {
-    suspend fun getHomeData() {
-        useCase
-            .execute()
-            .flowOn(dispatcher.io)
-            .onStart {
-                setLoading(true)
-            }.onEach {
-                _uiState.update { currentState ->
-                    currentState.copy(
-                        mainUiState =
-                        HomeUiState(
-                            todoList =
-                            it.map { todo ->
-                                HomeTodoUiState(
-                                    id = todo.id ?: 0,
-                                    userId = todo.userId ?: 0,
-                                    title = todo.title ?: "",
-                                    completed = todo.completed ?: false,
-                                )
-                            },
-                        ),
-                        isLoading = false,
-                    )
+    fun getHomeData() {
+        viewModelScope.launch {
+            useCase.execute()
+                .flowOn(dispatcher.io)
+                .onStart { setLoading(true) }
+                .onEach { setLoading(false) }
+                .catch { throwable ->
+                    setApiError(isApiError = true, errorMessage = throwable.message)
                 }
-            }.catch {
-                setLoading(false)
-                setApiError(isApiError = true, errorMessage = it.message)
-            }.launchIn(viewModelScope)
+                .map { todoList ->
+                    todoList.map { todo ->
+                        HomeTodoUiState(
+                            id = todo.id ?: 0,
+                            userId = todo.userId ?: 0,
+                            title = todo.title ?: "",
+                            completed = todo.completed ?: false
+                        )
+                    }
+                }
+                .collectLatest { homeTodoUiStates ->
+                    _uiState.update { currentState ->
+                        currentState.copy(
+                            mainUiState = HomeUiState(todoList = homeTodoUiStates)
+                        )
+                    }
+                }
+        }
     }
 }
