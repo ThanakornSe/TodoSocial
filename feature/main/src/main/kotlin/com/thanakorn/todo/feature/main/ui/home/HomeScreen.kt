@@ -26,6 +26,7 @@ import com.thanakorn.todo.resource.theme.toolbarColor
 import com.thanakorn.todo.resource.theme.white
 import com.thanakorn.todo.ui.base.BaseUiState
 import com.thanakorn.todo.ui.base.BaseViewModelCommonActionCompose
+import com.thanakorn.todo.ui.compose.ErrorScreen
 import com.thanakorns.todo.resource.R
 import org.koin.androidx.compose.koinViewModel
 
@@ -42,6 +43,12 @@ fun HomeMainScreen(
 
     BaseViewModelCommonActionCompose(viewModel = viewModel)
 
+    if (uiState.isApiError) {
+        ErrorScreen(onRetryClick = {
+            viewModel.setApiError(isApiError = false)
+        })
+    }
+
     HomeScreen(uiState = uiState)
 }
 
@@ -56,8 +63,8 @@ fun HomeScreen(
         topBar = {
             TopAppBar(
                 modifier =
-                    Modifier
-                        .fillMaxWidth(),
+                Modifier
+                    .fillMaxWidth(),
                 title = {
                     Text(
                         text = stringResource(R.string.app_name),
@@ -66,18 +73,18 @@ fun HomeScreen(
                     )
                 },
                 colors =
-                    TopAppBarDefaults.topAppBarColors(
-                        containerColor = toolbarColor,
-                    ),
+                TopAppBarDefaults.topAppBarColors(
+                    containerColor = toolbarColor,
+                ),
             )
         },
     ) { paddingValue ->
 
         LazyColumn(
             modifier =
-                modifier
-                    .fillMaxSize()
-                    .padding(paddingValue),
+            modifier
+                .fillMaxSize()
+                .padding(paddingValue),
         ) {
             uiState.mainUiState?.todoList?.let { todoList ->
                 items(todoList) {

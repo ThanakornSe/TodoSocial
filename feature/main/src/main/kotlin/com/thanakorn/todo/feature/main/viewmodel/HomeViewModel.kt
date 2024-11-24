@@ -12,12 +12,13 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 class HomeViewModel(
     private val useCase: GetTodoListUseCase,
     private val dispatcher: DispatcherProvider,
 ) : BaseViewModel<HomeUiState>() {
-    suspend fun getHomeData() {
+    fun getHomeData() {
         useCase
             .execute()
             .flowOn(dispatcher.io)
@@ -27,17 +28,17 @@ class HomeViewModel(
                 _uiState.update { currentState ->
                     currentState.copy(
                         mainUiState =
-                            HomeUiState(
-                                todoList =
-                                    it.map { todo ->
-                                        HomeTodoUiState(
-                                            id = todo.id ?: 0,
-                                            userId = todo.userId ?: 0,
-                                            title = todo.title ?: "",
-                                            completed = todo.completed ?: false,
-                                        )
-                                    },
-                            ),
+                        HomeUiState(
+                            todoList =
+                            it.map { todo ->
+                                HomeTodoUiState(
+                                    id = todo.id ?: 0,
+                                    userId = todo.userId ?: 0,
+                                    title = todo.title ?: "",
+                                    completed = todo.completed ?: false,
+                                )
+                            },
+                        ),
                         isLoading = false,
                     )
                 }

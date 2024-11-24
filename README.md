@@ -8,5 +8,6 @@
 - Flow
 - Koin
 - Chucker
+- Loading and Error handling screen
 
   <img src="https://github.com/user-attachments/assets/8a802d94-3f31-496c-832c-743c3fbb5b4b" width="350">

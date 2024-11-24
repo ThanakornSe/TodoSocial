@@ -3,4 +3,5 @@
     <string name="app_name">TodoSocial</string>
     <string name="completed_task">Completed</string>
     <string name="not_completed_task">Incomplete</string>
+    <string name="error_button_retry">Please try again</string>
 </resources>
