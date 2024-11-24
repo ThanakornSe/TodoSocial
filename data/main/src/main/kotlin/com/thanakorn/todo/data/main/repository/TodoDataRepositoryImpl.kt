@@ -14,7 +14,7 @@ class TodoDataRepositoryImpl(
     private val dao: TodoListDao,
     private val dispatcher: DispatcherProvider,
 ) : TodoDataRepository {
-    override fun getTodoList(): Flow<List<TodoListItemEntity>> {
+    override suspend fun getTodoList(): Flow<List<TodoListItemEntity>> {
         return flow {
             try {
                 val response = service.getTodoList()

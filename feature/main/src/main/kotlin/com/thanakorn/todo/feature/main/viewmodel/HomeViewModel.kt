@@ -18,7 +18,7 @@ class HomeViewModel(
     private val useCase: GetTodoListUseCase,
     private val dispatcher: DispatcherProvider,
 ) : BaseViewModel<HomeUiState>() {
-    fun getHomeData() {
+    suspend fun getHomeData() {
         useCase
             .execute()
             .flowOn(dispatcher.io)
