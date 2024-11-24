@@ -16,7 +16,6 @@ import com.thanakorn.todo.ui.compose.LoadingScreen
 @Composable
 fun <T> BaseViewModelCommonActionCompose(
     viewModel: BaseViewModel<T>,
-    snackState: SnackbarHostState = remember { SnackbarHostState() },
 ) {
     val uiState by viewModel.uiState.collectAsState()
 

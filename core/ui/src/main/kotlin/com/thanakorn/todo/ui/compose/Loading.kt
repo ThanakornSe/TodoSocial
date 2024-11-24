@@ -13,6 +13,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.thanakorn.todo.resource.theme.AppTheme
+import com.thanakorn.todo.resource.theme.space4Dp
+import com.thanakorn.todo.resource.theme.space64Dp
 import com.thanakorn.todo.resource.theme.statusBar
 import com.thanakorn.todo.resource.theme.white
 
@@ -31,7 +33,7 @@ fun LoadingScreen() {
             modifier = Modifier.background(Transparent),
         ) {
             CircularProgressIndicator(
-                modifier = Modifier.width(64.dp),
+                modifier = Modifier.width(space64Dp),
                 color = statusBar,
                 trackColor = white,
             )
