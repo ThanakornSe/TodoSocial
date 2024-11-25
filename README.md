@@ -7,6 +7,7 @@
 - Coroutines
 - Flow
 - Koin
+- Room Database (caching data for offline mode)
 - Chucker
 - Loading and Error handling screen
 
